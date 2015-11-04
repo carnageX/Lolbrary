@@ -8,6 +8,6 @@ namespace Lolbrary
 {
     public class MemoryLeak
     {
-
+        //TODO: implement constructor and methods
     }
 }
