@@ -13,13 +13,7 @@ namespace Lolbrary
         private BackgroundWorker _worker;
         private string _filepath;
 
-        public StorageFiller()
-        {
-            var path = @"C:\Temp";
-            FillerInit(path);
-        }
-
-        public StorageFiller(string saveDirectory)
+        public StorageFiller(string saveDirectory = @"C:\Temp")
         {
             FillerInit(saveDirectory);
         }

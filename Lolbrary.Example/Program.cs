@@ -26,11 +26,15 @@ namespace Lolbrary.Example
             //SegFault.GenSegFault();
 
             //Gets "random" int and double and then adds them together
-            var x = RandomNumber.GetInt();
-            var y = RandomNumber.GetDouble();
-            Console.WriteLine(x);
-            Console.WriteLine(y);
-            Console.WriteLine(x + y);
+            //var x = RandomNumber.GetInt();
+            //var y = RandomNumber.GetDouble();
+            //Console.WriteLine(x);
+            //Console.WriteLine(y);
+            //Console.WriteLine(x + y);
+
+            //Generates "nonsense" string
+            //var nonsense = Nonsense.GetNonsense(Nonsense.NonsenseLength.Short).Result;
+            //Console.WriteLine(nonsense);
 
             Console.ReadLine();
         }
