@@ -12,7 +12,7 @@ namespace Lolbrary.Example
         static void Main(string[] args)
         {
             /*
-                CPULock and StorageFiller run on a separate thread, 
+                CPULock, MemoryLeak, and StorageFiller run on a separate thread, 
                 so normal processing can/will continue.
             */
 
@@ -35,6 +35,13 @@ namespace Lolbrary.Example
             //Generates "nonsense" string
             //var nonsense = Nonsense.GetNonsense(Nonsense.NonsenseLength.Short).Result;
             //Console.WriteLine(nonsense);
+
+            //Memory leak example - check memory usage while this is running
+            MemoryLeak leaker = new MemoryLeak();
+            while(leaker.WorkerIsRunning)
+            {
+                Console.WriteLine(leaker.AllocatedMemory);
+            }
 
             Console.ReadLine();
         }
